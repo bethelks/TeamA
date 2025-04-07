@@ -4,7 +4,7 @@ using System.Linq;
 namespace StudentGrades
 {
     public class Student
-    {
+    { //Lynnzey
         public string Name { get; set; }
         public int Grade { get; set; }
 
