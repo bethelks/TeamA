@@ -46,7 +46,52 @@ namespace StudentGrades
             Console.Read();
         }
 
-        static void DisplayStudents(IEnumerable<Student> students)
+        // Step 5: Top N Students
+        public static IEnumerable<Student> GetTopNStudents(List<Student> students, int N)
+        {
+            return students
+                .OrderByDescending(s => s.Grade)  // Sort students by grade in descending order
+                .Take(N);                        // Take the top N students
+        }
+
+
+
+        using System.IO;
+        using System.Text.Json;
+        
+        // Step 6: Save Data
+        public static void SaveStudentsToFile(List<Student> students, string filePath)
+    {
+        // Serialize the list of students to JSON
+        string jsonString = JsonSerializer.Serialize(students);
+
+        // Write the JSON string to a file
+        File.WriteAllText(filePath, jsonString);
+        Console.WriteLine("Student data saved to file.");
+    }
+
+
+    // Step 6: Load Data
+    public static List<Student> LoadStudentsFromFile(string filePath)
+    {
+        if (File.Exists(filePath))
+        {
+            // Read the JSON string from the file
+            string jsonString = File.ReadAllText(filePath);
+
+            // Deserialize the JSON string back to a list of students
+            return JsonSerializer.Deserialize<List<Student>>(jsonString);
+        }
+        else
+        {
+            Console.WriteLine("File not found.");
+            return new List<Student>();  // Return an empty list if the file doesn't exist
+        }
+    }
+
+
+
+    static void DisplayStudents(IEnumerable<Student> students)
         {
             foreach (var student in students)
             {
