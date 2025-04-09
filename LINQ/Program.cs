@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using Newtonsoft.Json;
+
 namespace StudentGrades
 {
     public class Student
@@ -56,18 +59,17 @@ namespace StudentGrades
 
 
 
-        using System.IO;
-        using System.Text.Json;
+      
         
         // Step 6: Save Data
         public static void SaveStudentsToFile(List<Student> students, string filePath)
     {
-        // Serialize the list of students to JSON
-        string jsonString = JsonSerializer.Serialize(students);
+            // Serialize the list of students to JSON
+            string jsonString = JsonConvert.SerializeObject(students, Formatting.Indented);
 
-        // Write the JSON string to a file
-        File.WriteAllText(filePath, jsonString);
-        Console.WriteLine("Student data saved to file.");
+            // Write the JSON string to a file
+            File.WriteAllText(filePath, jsonString);
+            Console.WriteLine("Student data saved to file.");
     }
 
 
@@ -80,7 +82,7 @@ namespace StudentGrades
             string jsonString = File.ReadAllText(filePath);
 
             // Deserialize the JSON string back to a list of students
-            return JsonSerializer.Deserialize<List<Student>>(jsonString);
+            return JsonConvert.DeserializeObject<List<Student>>(jsonString);
         }
         else
         {
