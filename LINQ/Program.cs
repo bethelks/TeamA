@@ -4,7 +4,7 @@ using System.Linq;
 namespace StudentGrades
 {
     public class Student
-    {
+    { 
         public string Name { get; set; }
         public int Grade { get; set; }
 
@@ -51,6 +51,31 @@ namespace StudentGrades
             foreach (var student in students)
             {
                 Console.WriteLine($"{student.Name}, Grade: {student.Grade}");
+            }
+        }
+        public static void ListStudentBelowAverage(List<Student> students)
+        {
+            if (students == null || students.Count == 0)
+            {
+                Console.WriteLine("No students available.");
+                return;
+            }
+            double average = students.Average(s => s.Grade);
+            Console.WriteLine($"Class Average: {average:F2}");
+
+            var belowAverageStudents = students.Where(s => s.Grade < average).ToList();
+            if (belowAverageStudents.Count != 0)
+            {
+                Console.WriteLine("Students below average:");
+                foreach (var student in belowAverageStudents)
+                {
+                    Console.WriteLine($"Name: {student.Name}, Grade: {student.Grade}");
+                }
+            }
+            else
+            {
+                Console.WriteLine("All students are at or above average.");
+                return;
             }
         }
     }
