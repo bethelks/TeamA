@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using Newtonsoft.Json;
 
 namespace StudentGrades
@@ -9,9 +10,7 @@ namespace StudentGrades
     public class Student
 
     { 
-
-    { 
- main
+ 
         public string Name { get; set; }
         public int Grade { get; set; }
 
@@ -47,9 +46,16 @@ namespace StudentGrades
             Console.WriteLine("\nStudents sorted by grades (highest to lowest):");
             DisplayStudents(sortedStudents);
 
+            // Get Top N Student - Albert added by Lynnzey 4/11/25
+            var v=GetTopNStudents(students, 2);
+            Console.WriteLine("The top two students: " + v.ToList());
+
             // Calculate average grade
             double averageGrade = students.Average(s => s.Grade);
             Console.WriteLine($"\nAverage grade of all students: {averageGrade}");
+
+            //List Students Below Average - Lynnzey Young 4/11/25
+            ListStudentBelowAverage(students);
             Console.Read();
         }
 
