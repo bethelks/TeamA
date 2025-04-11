@@ -34,6 +34,36 @@ namespace StudentGrades
             Console.WriteLine("All Students:");
             DisplayStudents(students);
 
+            // Adding new functionality here
+            // Find a student
+            string nameToFind = "Charlie";
+            var foundStudent = FindStudentByName(students, nameToFind);
+            if (foundStudent != null)
+            {
+                Console.WriteLine($"\nFound Student - Name: {foundStudent.Name}, Grade: {foundStudent.Grade}");
+            }
+            else
+            {
+                Console.WriteLine($"\nStudent named '{nameToFind}' not found.");
+            }
+
+            // Remove a student
+            string nameToRemove = "Bob";
+            bool removed = RemoveStudentByName(students, nameToRemove);
+            if (removed)
+            {
+                Console.WriteLine($"\nStudent named '{nameToRemove}' removed successfully.");
+            }
+            else
+            {
+                Console.WriteLine($"\nStudent named '{nameToRemove}' not found.");
+            }
+
+            // Display students after removal
+            Console.WriteLine("\nStudents after removal:");
+            DisplayStudents(students);
+
+
             // Use LINQ to filter students with grades greater than 80
             var highAchievers = students.Where(s => s.Grade > 80);
             Console.WriteLine("\nStudents with grades greater than 80:");
@@ -55,6 +85,26 @@ namespace StudentGrades
             Console.WriteLine("\nStudents after adding new students:");
             DisplayStudents(students);
         }
+
+
+        // Method to find a student by name
+        public static Student FindStudentByName(List<Student> studentList, string name)
+        {
+            return studentList.FirstOrDefault(s => s.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
+        }
+
+        // Method to remove a student by name
+        public static bool RemoveStudentByName(List<Student> studentList, string name)
+        {
+            var studentToRemove = studentList.FirstOrDefault(s => s.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
+            if (studentToRemove != null)
+            {
+                studentList.Remove(studentToRemove);
+                return true; // Student successfully removed
+            }
+            return false; // Student not found
+        }
+
 
         // Step 1b: Add new student and validation to check if student already exists
         static void AddNewStudent(List<Student> studentList, string name, int grade)
