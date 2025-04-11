@@ -9,9 +9,6 @@ namespace StudentGrades
     public class Student
 
     { 
-
-    { 
- main
         public string Name { get; set; }
         public int Grade { get; set; }
 
@@ -51,6 +48,26 @@ namespace StudentGrades
             double averageGrade = students.Average(s => s.Grade);
             Console.WriteLine($"\nAverage grade of all students: {averageGrade}");
             Console.Read();
+
+            // Step 1a: Add new student
+            AddNewStudent(students, "Grace", 90);
+            AddNewStudent(students, "Alice", 78);
+            Console.WriteLine("\nStudents after adding new students:");
+            DisplayStudents(students);
+        }
+
+        // Step 1b: Add new student and validation to check if student already exists
+        static void AddNewStudent(List<Student> studentList, string name, int grade)
+        {
+            if (studentList.Any(s => s.Name.Equals(name, StringComparison.OrdinalIgnoreCase)))
+            {
+                Console.WriteLine($"Student with name '{name}' already exists");
+            }
+            else
+            {
+                studentList.Add(new Student(name, grade));
+                Console.WriteLine($"Student '{name}' added succesfully.");
+            }
         }
 
         // Step 5: Top N Students
@@ -61,10 +78,6 @@ namespace StudentGrades
                 .Take(N);                        // Take the top N students
         }
 
-
-
-      
-        
         // Step 6: Save Data
         public static void SaveStudentsToFile(List<Student> students, string filePath)
     {
