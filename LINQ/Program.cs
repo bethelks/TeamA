@@ -78,13 +78,26 @@ namespace StudentGrades
             }
         }
 
-        // Step 5: Top N Students
+        /// <summary>
+        /// Step 5: Top N Students
+        /// This method takes a list of students and a number N,
+        /// and returns the top N students based on their grade, in descending order.
+        /// </summary>
+        /// <param name="students">A list of Student objects</param>
+        /// <param name="N">The number of top students to return</param>
+        /// <returns>An IEnumerable of the top N students by grade</returns>
         public static IEnumerable<Student> GetTopNStudents(List<Student> students, int N)
         {
+            if (students == null || students.Count == 0 || N <= 0)
+            {
+                return new List<Student>();
+            }
+
             return students
-                .OrderByDescending(s => s.Grade)  // Sort students by grade in descending order
-                .Take(N);                        // Take the top N students
+                .OrderByDescending(s => s.Grade)  // Sort by grade descending
+                .Take(N);                         // Take the top N
         }
+
 
         // Step 6: Save Data
         public static void SaveStudentsToFile(List<Student> students, string filePath)
