@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -47,7 +47,11 @@ namespace StudentGrades
 
             // Get Top N Student - Albert added by Lynnzey 4/11/25
             var v=GetTopNStudents(students, 2);
-            Console.WriteLine("The top two students: " + v.ToList());
+            foreach (var n in v)
+            {
+             Console.WriteLine("The top two students: " + n.Name + ", " + n.Grade);
+            }
+          
 
             // Calculate average grade
             double averageGrade = students.Average(s => s.Grade);
