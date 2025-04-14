@@ -102,6 +102,7 @@ namespace StudentGrades
             AddNewStudent(students, "Grace", 90);
             AddNewStudent(students, "Alice", 78);
             Console.WriteLine("\nStudents after adding new students:");
+            DisplayStudents(students);
             Console.Read();
         }
 
