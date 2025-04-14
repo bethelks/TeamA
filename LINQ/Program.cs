@@ -87,11 +87,6 @@ namespace StudentGrades
             ListStudentBelowAverage(students);
             Console.Read();
 
-            // Step 1a: Add new student
-            AddNewStudent(students, "Grace", 90);
-            AddNewStudent(students, "Alice", 78);
-            Console.WriteLine("\nStudents after adding new students:");
-            DisplayStudents(students);
         }
 
 
@@ -111,21 +106,6 @@ namespace StudentGrades
                 return true; // Student successfully removed
             }
             return false; // Student not found
-        }
-
-
-        // Step 1b: Add new student and validation to check if student already exists
-        static void AddNewStudent(List<Student> studentList, string name, int grade)
-        {
-            if (studentList.Any(s => s.Name.Equals(name, StringComparison.OrdinalIgnoreCase)))
-            {
-                Console.WriteLine($"Student with name '{name}' already exists");
-            }
-            else
-            {
-                studentList.Add(new Student(name, grade));
-                Console.WriteLine($"Student '{name}' added succesfully.");
-            }
         }
 
         // Step 5: Top N Students
