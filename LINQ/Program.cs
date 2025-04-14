@@ -44,6 +44,12 @@ namespace StudentGrades
             double averageGrade = students.Average(s => s.Grade);
             Console.WriteLine($"\nAverage grade of all students: {averageGrade}");
             Console.Read();
+
+            // Step1: Add a new student
+            AddNewStudent(students, "Grace", 90);
+            AddNewStudent(students, "Alice", 78);
+            Console.WriteLine("\nStudents after adding new students:");
+            DisplayStudents(students);
         }
 
         static void DisplayStudents(IEnumerable<Student> students)
@@ -53,6 +59,21 @@ namespace StudentGrades
                 Console.WriteLine($"{student.Name}, Grade: {student.Grade}");
             }
         }
+
+        // Step1: Add new student and validation to check if the student already exists
+        static void AddNewStudent(List<Student> studentList, string name, int grade)
+        {
+            if (studentList.Any(s => s.Name.Equals(name, StringComparison.OrdinalIgnoreCase)))
+            {
+                Console.WriteLine($"Student with name '{name}' already exists");
+            }
+            else
+            {
+                studentList.Add(new Student(name, grade));
+                Console.WriteLine($"Student '{name}' added succesfully.");
+            }
+        }
+
     }
 }
 
