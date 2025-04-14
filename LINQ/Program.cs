@@ -12,7 +12,6 @@ namespace StudentGrades
     {
 
 
-    { 
 
         public string Name { get; set; }
         public int Grade { get; set; }
@@ -97,13 +96,13 @@ namespace StudentGrades
 
             //List Students Below Average - Lynnzey Young 4/11/25
             ListStudentBelowAverage(students);
-            Console.Read();
+            
 
             // Step 1a: Add new student
             AddNewStudent(students, "Grace", 90);
             AddNewStudent(students, "Alice", 78);
             Console.WriteLine("\nStudents after adding new students:");
-            DisplayStudents(students);
+            Console.Read();
         }
 
         // Step 1b: Add new student and validation to check if student already exists
