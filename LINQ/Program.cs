@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using Newtonsoft.Json;
 
 namespace StudentGrades
 {
     public class Student
-    { //Lynnzey
+
+    { 
         public string Name { get; set; }
         public int Grade { get; set; }
 
@@ -43,10 +45,37 @@ namespace StudentGrades
             Console.WriteLine("\nStudents sorted by grades (highest to lowest):");
             DisplayStudents(sortedStudents);
 
+            // Get Top N Student - Albert added by Lynnzey 4/11/25
+            var v=GetTopNStudents(students, 2);
+            Console.WriteLine("The top two students: " + v.ToList());
+
             // Calculate average grade
             double averageGrade = students.Average(s => s.Grade);
             Console.WriteLine($"\nAverage grade of all students: {averageGrade}");
+
+            //List Students Below Average - Lynnzey Young 4/11/25
+            ListStudentBelowAverage(students);
             Console.Read();
+
+            // Step 1a: Add new student
+            AddNewStudent(students, "Grace", 90);
+            AddNewStudent(students, "Alice", 78);
+            Console.WriteLine("\nStudents after adding new students:");
+            DisplayStudents(students);
+        }
+
+        // Step 1b: Add new student and validation to check if student already exists
+        static void AddNewStudent(List<Student> studentList, string name, int grade)
+        {
+            if (studentList.Any(s => s.Name.Equals(name, StringComparison.OrdinalIgnoreCase)))
+            {
+                Console.WriteLine($"Student with name '{name}' already exists");
+            }
+            else
+            {
+                studentList.Add(new Student(name, grade));
+                Console.WriteLine($"Student '{name}' added succesfully.");
+            }
         }
 
         /// <summary>
@@ -68,7 +97,6 @@ namespace StudentGrades
                 .OrderByDescending(s => s.Grade)  // Sort by grade descending
                 .Take(N);                         // Take the top N
         }
-
 
 
         // Step 6: Save Data
@@ -110,6 +138,30 @@ namespace StudentGrades
                 Console.WriteLine($"{student.Name}, Grade: {student.Grade}");
             }
         }
+        public static void ListStudentBelowAverage(List<Student> students)
+        {
+            if (students == null || students.Count == 0)
+            {
+                Console.WriteLine("No students available.");
+                return;
+            }
+            double average = students.Average(s => s.Grade);
+            Console.WriteLine($"Class Average: {average:F2}");
+
+            var belowAverageStudents = students.Where(s => s.Grade < average).ToList();
+            if (belowAverageStudents.Count != 0)
+            {
+                Console.WriteLine("Students below average:");
+                foreach (var student in belowAverageStudents)
+                {
+                    Console.WriteLine($"Name: {student.Name}, Grade: {student.Grade}");
+                }
+            }
+            else
+            {
+                Console.WriteLine("All students are at or above average.");
+                return;
+            }
+        }
     }
 }
-
